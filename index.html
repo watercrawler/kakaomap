@@ -3,10 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <title>카카오지도</title>
+    <link type="text/css" rel="stylesheet" href="css.css" />
   </head>
   <body>
-    <div id="map" style="width:500px; height: 400px;"></div>
-
+    <header class="header">
+      <h1>내 주변 카페 찾기</h1>
+    </header>
+    <div id="map" style="width:800px; height: 800px;"></div>
+    <ol id="cafe_list">
+      <li></li>
+    </ol>
     <!-- <script
       type="text/javascript"
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6c12172df5d72715235107cb3f7fb500"

@@ -53,13 +53,20 @@ function success(pos) {
           position: new kakao.maps.LatLng(y, x)
         });
 
+        const placeName = element.place_name;
+
         const labels = new kakao.maps.InfoWindow({
           position: markers.position, // 지도의 중심좌표에 올립니다.
-          content: element.place_name // 인포윈도우 내부에 들어갈 컨텐츠 입니다.
+          content: placeName // 인포윈도우 내부에 들어갈 컨텐츠 입니다.
         });
         labels.open(map, markers); // 지도에 올리면서, 두번째 인자로 들어간 마커 위에 올라가도록 설정합니다.
 
         markers.setMap(map);
+        const li = document.createElement('li');
+        const cafeList = document.getElementById('cafe_list');
+        // const a = `<a href='${element.place_url}>${element.place_name}</a>`;
+        li.innerText = placeName;
+        cafeList.appendChild(li);
       });
     }
   };
