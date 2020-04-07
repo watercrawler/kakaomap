@@ -1,7 +1,7 @@
 const geoOptions = {
   enableHighAccuracy: true,
   timeout: 5000,
-  maximumAge: 0
+  maximumAge: 0,
 };
 
 function success(pos) {
@@ -12,7 +12,7 @@ function success(pos) {
   const options = {
     //지도를 생성할 때 필요한 기본 옵션
     center: currentPosition, //지도의 중심좌표.
-    level: 3 //지도의 레벨(확대, 축소 정도)
+    level: 3, //지도의 레벨(확대, 축소 정도)
   };
 
   const map = new kakao.maps.Map(container, options);
@@ -25,48 +25,51 @@ function success(pos) {
     useMapBounds: true,
     radius: 5000,
     size: 15,
-    page: 2
+    page: 2,
   };
 
   const mMarker = new kakao.maps.Marker({
     position: currentPosition, // 지도의 중심좌표에 올립니다.
-    map: map // 생성하면서 지도에 올립니다.
+    map: map, // 생성하면서 지도에 올립니다.
   });
 
   const mLabel = new kakao.maps.InfoWindow({
     position: currentPosition, // 지도의 중심좌표에 올립니다.
-    content: '내 위치' // 인포윈도우 내부에 들어갈 컨텐츠 입니다.
+    content: '내 위치', // 인포윈도우 내부에 들어갈 컨텐츠 입니다.
   });
   mLabel.open(map, mMarker);
 
-  const callback = function(result, status) {
+  const callback = function (result, status) {
     if (status === kakao.maps.services.Status.OK) {
       console.log(result);
 
-      result.forEach(element => {
+      result.forEach((element) => {
         const x = parseFloat(element.x);
         const y = parseFloat(element.y);
         console.log(element);
 
         const markers = new kakao.maps.Marker({
           map: map,
-          position: new kakao.maps.LatLng(y, x)
+          position: new kakao.maps.LatLng(y, x),
         });
 
         const placeName = element.place_name;
 
         const labels = new kakao.maps.InfoWindow({
           position: markers.position, // 지도의 중심좌표에 올립니다.
-          content: placeName // 인포윈도우 내부에 들어갈 컨텐츠 입니다.
+          content: placeName, // 인포윈도우 내부에 들어갈 컨텐츠 입니다.
         });
         labels.open(map, markers); // 지도에 올리면서, 두번째 인자로 들어간 마커 위에 올라가도록 설정합니다.
 
         markers.setMap(map);
         const li = document.createElement('li');
+        const anchor = document.createElement('a');
         const cafeList = document.getElementById('cafe_list');
-        // const a = `<a href='${element.place_url}>${element.place_name}</a>`;
-        li.innerText = placeName;
+        const url = element.place_url;
+        anchor.innerText = placeName;
         cafeList.appendChild(li);
+        li.appendChild(anchor);
+        anchor.setAttribute('href', url);
       });
     }
   };
